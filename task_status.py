@@ -67,13 +67,10 @@ try:
             s = str(e)
             if "status-val" in s:
                 status_task = '    Статус: -----'
-                #print('    Не найден элемент "Статус"')
             elif "assignee-val" in s:
                 executor_task = '    Исполнитель: -----'
-                #print('    Не найден элемент "Исполнитель"')
             elif "reporter-val" in s:
                 author_task = '    Автор: -----'
-                #print('    Не найден элемент "Автор"')
             elif "customfield_11200-val" in s:
                 tester_task = '   Тестировщик: -----'
             else:
