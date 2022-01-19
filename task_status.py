@@ -46,6 +46,8 @@ try:
         try:
             print(str(i))
             wd.get("https://jira.absolutins.ru/browse/"+str(i))
+            type_task = "   Тип: " + \
+                wd.find_element(By.XPATH, "//span[@id='type-val']").text
             status_task = "   Статус: " + \
                 wd.find_element(By.XPATH, "//span[@id='status-val']").text
             executor_task = "   Исполнитель: " + \
@@ -61,11 +63,13 @@ try:
             # with open('result.txt', 'a', encoding="utf-8") as f:
             # f.write(str(i) + "\n" + status_task + "\n" +
             # executor_task + "\n" + author_task + "\n")
-            print(status_task + "\n" + executor_task + "\n" +
+            print(type_task + "\n" + status_task + "\n" + executor_task + "\n" +
                   author_task + "\n" + tester_task + "\n")
         except NoSuchElementException as e:
             s = str(e)
-            if "status-val" in s:
+            if "type-val" in s:
+                status_task = '    Тип: -----'
+            elif "status-val" in s:
                 status_task = '    Статус: -----'
             elif "assignee-val" in s:
                 executor_task = '    Исполнитель: -----'
@@ -75,10 +79,10 @@ try:
                 tester_task = '   Тестировщик: -----'
             else:
                 print('Ни один из запрошенных элементов не найден !!!')
-            print(status_task + "\n" + executor_task + "\n" +
+            print(type_task + "\n" + status_task + "\n" + executor_task + "\n" +
                   author_task + "\n" + tester_task + "\n")
     print("-"*10)
-except:
-    print("Error")
+# except:
+#    print("Error")
 finally:
     wd.quit()
