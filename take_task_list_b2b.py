@@ -5,9 +5,6 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import getpass
-# import datetime
-# import time
-# import json
 
 driver_path = r'C:\Users\p.kalinchuk\python\work\drivers\geckodriver.exe'
 
@@ -16,6 +13,8 @@ options.headless = True
 path = Service(driver_path)
 wd = webdriver.Firefox(service=path, options=options)
 wd.implicitly_wait(30)
+
+take_list = []
 
 # Получаем пароль к Jire от пользователя
 pass_key = getpass.getpass('\nПароль пользователя Jira: ')
@@ -48,7 +47,11 @@ try:
 #        a = wd.find_elements(
 #            By.XPATH, "//*[contains(@id, 'issuerow')]")
         for i in a:
-            print(i.text)
+            take_list.append(i.text)
+        print(take_list)
+        take_list = map(lambda x: x + '\n', take_list)
+        with open('tasks.txt', 'w') as f:
+            f.writelines(take_list)
     except:
         b = 'test'
 except:
