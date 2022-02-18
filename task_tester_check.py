@@ -24,7 +24,6 @@ with open('tasks.txt', 'r') as f:
 tasks_list = tasks.split()
 # Получаем пароль к Jire от пользователя
 pass_key = getpass.getpass('\nПароль пользователя Jira: ')
-#pass_key = input("\nПароль пользователя Jira: ")
 
 try:
     wd.get("https://jira.absolutins.ru/login.jsp?os_destination=%2Flogin.jsp")
@@ -44,62 +43,51 @@ try:
         By.XPATH, "//input[@id='login-form-submit']").click()
     print("-"*10 + "\n")
     for i in tasks_list:
-        wd.get("https://jira.absolutins.ru/browse/"+str(i))
         try:
+            # print(str(i))
+            wd.get("https://jira.absolutins.ru/browse/"+str(i))
             type_task = "   Тип: " + \
                 wd.find_element(By.XPATH, "//span[@id='type-val']").text
-        except NoSuchElementException as e:
-            s = str(e)
-            if "type-val" in s:
-                type_task = '    Тип: -----'
-        try:
             status_task = "   Статус: " + \
                 wd.find_element(By.XPATH, "//span[@id='status-val']").text
-        except NoSuchElementException as e:
-            s = str(e)
-            if "status-val" in s:
-                status_task = '    Статус: -----'
-        try:
             executor_task = "   Исполнитель: " + \
                 wd.find_element(
                     By.XPATH, "//span[@id='assignee-val']").text
-        except NoSuchElementException as e:
-            s = str(e)
-            if "assignee-val" in s:
-                executor_task = '    Исполнитель: -----'
-        try:
             author_task = "   Автор: " + \
                 wd.find_element(
                     By.XPATH, "//span[@id='reporter-val']").text
-        except NoSuchElementException as e:
-            s = str(e)
-            if "reporter-val" in s:
-                author_task = '    Автор: -----'
-        try:
             tester_task = "   Тестировщик: " + \
                 wd.find_element(
                     By.XPATH, "//span[@id='customfield_11200-val']").text
-        except NoSuchElementException as e:
-            s = str(e)
-            if "customfield_11200-val" in s:
-                tester_task = '   Тестировщик: -----'
-        try:
-            title_task = "   Заголовок: " + \
-                wd.find_element(
-                    By.XPATH, "//h1[@id='summary-val']").text
-        except NoSuchElementException as e:
-            s = str(e)
-            if "summary-val" in s:
-                title_task = '    Заголовок: -----'
 #            Разблокировать, если надо записывать в файл
 #             with open('result.txt', 'a', encoding="utf-8") as f:
 #             f.write(str(i) + "\n" + status_task + "\n" +
 #             executor_task + "\n" + author_task + "\n")
-#            print(str(i) + ':    Тестировщик проставлен')
-        print(str(i) + "\n" + type_task + "\n" + status_task + "\n" + executor_task + "\n" +
-              author_task + "\n" + tester_task + "\n" + title_task + "\n")
+            print(str(i) + ':    Тестировщик проставлен')
+#            print(type_task + "\n" + status_task + "\n" + executor_task + "\n" +
+#                 author_task + "\n" + tester_task + "\n")
+        except NoSuchElementException as e:
+            s = str(e)
+            if "type-val" in s:
+                type_task = '    Тип: -----'
+            elif "status-val" in s:
+                status_task = '    Статус: -----'
+            elif "assignee-val" in s:
+                executor_task = '    Исполнитель: -----'
+            elif "reporter-val" in s:
+                author_task = '    Автор: -----'
+            elif "customfield_11200-val" in s:
+                tester_task = '   Тестировщик: -----'
+            else:
+                print('Ни один из запрошенных элементов не найден !!!')
+            if tester_task == '   Тестировщик: -----' and (status_task == 'DONE' or status_task == 'Installation'):
+                print(str(i) + ':    Необходимо проставить тестировщика')
+            else:
+                print(str(i) + ":    " + status_task)
+#            print(str(i) + "\n" + type_task + "\n" + status_task + "\n" + executor_task + "\n" +
+#                  author_task + "\n" + tester_task + "\n")
     print("-"*10)
-except:
-    print("Что-то пошло не так :-(")
+# except:
+#    print("Error")
 finally:
     wd.quit()
