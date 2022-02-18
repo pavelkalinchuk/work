@@ -48,7 +48,7 @@ try:
 #            By.XPATH, "//*[contains(@id, 'issuerow')]")
         for i in a:
             take_list.append(i.text)
-        print(take_list)
+#        print(take_list)
         take_list = map(lambda x: x + '\n', take_list)
         with open('tasks.txt', 'w') as f:
             f.writelines(take_list)
