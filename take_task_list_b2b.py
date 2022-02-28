@@ -1,3 +1,4 @@
+from cmath import e
 from os import path
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
@@ -58,7 +59,7 @@ try:
               '\nНомера задач записаны в файл \'task.txt\'\n')
 # Обработка исключений (ошибок при выполнении)
     except:
-        b = 'test'
+        print('Что-то пошло не так в блоке создания файла')
 # Обработка исключений (ошибок при выполнении)
 except:
     print("Что-то пошло не так :-(\n")
