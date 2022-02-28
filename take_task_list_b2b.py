@@ -16,6 +16,7 @@ wd.implicitly_wait(30)
 
 # Создаём пустой список
 take_list = []
+count_tasks = 0
 
 # Получаем пароль к Jire от пользователя при этом скрываем вводимое
 pass_key = getpass.getpass('\nПароль пользователя Jira: ')
@@ -47,12 +48,14 @@ try:
 # Записываем полученные номера задач в список take_list
         for i in a:
             take_list.append(i.text)
+            count_tasks += 1
 # Разбираем созданный список задач для более удобного восприятия
         take_list = map(lambda x: x + '\n', take_list)
 # Записываем разобранный список задач в файл
         with open('tasks.txt', 'w') as f:
             f.writelines(take_list)
-        print('Создан файл \'task.txt\' со списком задач к тестированию\n')
+        print('Количество задач: ' + str(count_tasks) +
+              '\nНомера задач записаны в файл \'task.txt\'\n')
 # Обработка исключений (ошибок при выполнении)
     except:
         b = 'test'
