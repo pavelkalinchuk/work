@@ -39,9 +39,12 @@ def map_hours_name(hours):
 
 
 try:
-    time_work = int(input("Введите количество минут: "))
+    time_work = int(input("\nВведите количество минут кратное 5: "))
+    if time_work % 5 != 0:
+        print("\nОшибка!!! Введённое число не соответствует требованию \"Значение кратно 5\"\n")
+        quit()
 except ValueError:
-    print("Введено не верное значение")
+    print("\nОшибка!!! Введено некорректное значения\n")
     quit()
 if time_work >= 60:
     time_work_split = str(time_work/60).split(".")
@@ -49,6 +52,6 @@ if time_work >= 60:
     hours_name = map_hours_name(hours)
     minutes = time_work_split[1]
     minutes = map_minutes(minutes[0:2])
-    print(hours + " " + hours_name, minutes + " минут")
+    print("\n" + hours + " " + hours_name, minutes + " минут\n")
 else:
-    print("0 часов " + str(time_work) + " минут")
+    print("\n0 часов " + str(time_work) + " минут\n")
