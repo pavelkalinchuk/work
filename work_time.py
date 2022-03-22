@@ -26,11 +26,14 @@ def map_minutes(minutes):
 
 def map_hours_name(hours):
     hours_name_collection = ["часов", "час", "часа"]
-    if hours in {"0", "5", "6", "7", "8"}:
+    a = ("11", "12", "13", "14", "15", "16", "17", "18", "19")
+    b = ("0", "5", "6", "7", "8", "9")
+    c = ("2", "3", "4")
+    if hours[-1] in (b) or hours in (a):
         hours_name = hours_name_collection[0]
-    if hours == "1":
+    if (int(hours) % 2) == 1 and hours not in (a) and hours not in (b):
         hours_name = hours_name_collection[1]
-    if hours in {"2", "3", "4"}:
+    if hours[-1] in (c) and hours not in (a):
         hours_name = hours_name_collection[2]
     return(hours_name)
 
