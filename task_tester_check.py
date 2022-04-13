@@ -80,7 +80,7 @@ try:
                 tester_task = '   Тестировщик: -----'
             else:
                 print('Ни один из запрошенных элементов не найден !!!')
-            if tester_task == '   Тестировщик: -----' and (status_task == 'DONE' or status_task == 'Installation' or status_task == 'PRE-RELEASE'):
+            if tester_task == '   Тестировщик: -----' and (status_task == 'DONE' or status_task == 'INSTALLATION' or status_task == 'PRE-RELEASE'):
                 print(str(i) + ':    Необходимо проставить тестировщика')
             else:
                 print(str(i) + ":    " + status_task)
