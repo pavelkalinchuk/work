@@ -63,7 +63,7 @@ try:
 #             with open('result.txt', 'a', encoding="utf-8") as f:
 #             f.write(str(i) + "\n" + status_task + "\n" +
 #             executor_task + "\n" + author_task + "\n")
-            print(str(i) + ':    Тестировщик проставлен')
+            print(str(i) + ':   ' + tester_task)
 #            print(type_task + "\n" + status_task + "\n" + executor_task + "\n" +
 #                 author_task + "\n" + tester_task + "\n")
         except NoSuchElementException as e:
