@@ -19,6 +19,10 @@ wd.implicitly_wait(30)
 take_list = []
 count_tasks = 0
 
+# Возможные списки
+testinot = "https://jira.absolutins.ru/issues/?filter=12239"
+planned = "https://jira.absolutins.ru/issues/?filter=12912"
+
 # Получаем пароль к Jire от пользователя при этом скрываем вводимое
 pass_key = getpass.getpass('\nПароль пользователя Jira: ')
 
@@ -41,7 +45,7 @@ try:
         By.XPATH, "//input[@id='login-form-submit']").click()
     print("-"*10 + "\n")
  # Переходим на страницу фильтра со списком задач  В2В Моторы готовые к тестированию
-    wd.get("https://jira.absolutins.ru/issues/?filter=12451")
+    wd.get(testinot)
 # Собираем номера задач со страницы фильтра
     try:
         a = wd.find_elements(
