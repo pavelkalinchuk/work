@@ -64,7 +64,7 @@ try:
         with open('tasks.txt', 'w') as f:
             f.writelines(take_list)
         print('Количество задач: ' + str(count_tasks) +
-              '\nНомера задач записаны в файл \'task.txt\'\n')
+              '\nНомера задач записаны в файл \'tasks.txt\'\n')
 # Обработка исключений (ошибок при выполнении)
     except:
         print('Что-то пошло не так в блоке создания файла')
