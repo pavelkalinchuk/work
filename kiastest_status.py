@@ -1,20 +1,20 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 # для скрытия браузера
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.by import By
 import datetime
 
-driver_path = r'C:\Users\p.kalinchuk\python\drivers\chromedriver.exe'
 
 #  4 строки для выполнения "без запуска" браузера
 ua = dict(DesiredCapabilities.CHROME)
 options = Options()
 options.page_load_strategy = 'normal'
 options.add_argument('headless')
-path = Service(driver_path)
-wd = webdriver.Chrome(service=path, options=options)
+wd = webdriver.Chrome(options=options, service=Service(
+    ChromeDriverManager().install()))
 
 # Получение данных со страницы сайта
 # wd = webdriver.Chrome(executable_path=driver_path)
