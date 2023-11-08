@@ -24,7 +24,7 @@ with open('tasks.txt', 'r') as f:
 tasks_list = tasks.split()
 # Получаем пароль к Jire от пользователя
 pass_key = getpass.getpass('\nПароль пользователя Jira: ')
-#pass_key = input("\nПароль пользователя Jira: ")
+# pass_key = input("\nПароль пользователя Jira: ")
 
 try:
     wd.get("https://jira.absolutins.ru/login.jsp?os_destination=%2Flogin.jsp")
@@ -44,7 +44,8 @@ try:
         By.XPATH, "//input[@id='login-form-submit']").click()
     print("-"*10 + "\n")
     for i in tasks_list:
-        wd.get("https://jira.absolutins.ru/browse/"+str(i))
+        link = ("https://jira.absolutins.ru/browse/"+str(i))
+        wd.get(link)
         try:
             type_task = "   Тип: " + \
                 wd.find_element(By.XPATH, "//span[@id='type-val']").text
@@ -54,7 +55,8 @@ try:
                 type_task = '    Тип: -----'
         try:
             status_task = "   Статус: " + \
-                wd.find_element(By.XPATH, "//span[@id='status-val']").text
+                wd.find_element(
+                    By.XPATH, "//*[@id='opsbar-transitions_more']/span[@class='dropdown-text']").text
         except NoSuchElementException as e:
             s = str(e)
             if "status-val" in s:
@@ -91,13 +93,31 @@ try:
             s = str(e)
             if "summary-val" in s:
                 title_task = '    Заголовок: -----'
-#            Разблокировать, если надо записывать в файл
-#             with open('result.txt', 'a', encoding="utf-8") as f:
-#             f.write(str(i) + "\n" + status_task + "\n" +
-#             executor_task + "\n" + author_task + "\n")
+        try:
+            time_task = "   Предварительная оценка: " + \
+                wd.find_element(
+                    By.XPATH, "//dd[@id='tt_single_values_orig']").text
+        except NoSuchElementException as e:
+            s = str(e)
+            if "tt_single_values_orig" in s:
+                title_task = '    Предварительная оценка: -----'
+        try:
+            sprint_task = "   В спринте: " + \
+                wd.find_element(
+                    By.XPATH, "//dd/a[@class='issueaction-greenhopper-rapidboard-operation js-find-on-board-sprint']").text
+        except NoSuchElementException as e:
+            s = str(e)
+            if "issueaction-greenhopper-rapidboard-operation js-find-on-board-sprint" in s:
+                sprint_task = '    В спринте: -----'
+#      Разблокировать, если надо записывать в файл
+        with open('result.txt', 'a', encoding="utf-8") as f:
+            f.write("\n" + str(i) + "\n" + type_task + "\n" + status_task + "\n" + executor_task + "\n" + author_task +
+                    "\n" + tester_task + "\n" + title_task + "\n" + time_task + "\n" + sprint_task + "\n" + link + "\n")
 #            print(str(i) + ':    Тестировщик проставлен')
-        print(str(i) + "\n" + type_task + "\n" + status_task + "\n" + executor_task + "\n" +
-              author_task + "\n" + tester_task + "\n" + title_task + "\n")
+        # Вывод результата в терминал
+        # print(str(i) + "\n" + type_task + "\n" + status_task + "\n" + executor_task + "\n" +
+        #       author_task + "\n" + tester_task + "\n" + title_task + "\n" + time_task + "\n" + sprint_task + "\n" + link + "\n")
+        # print(link + time_task)
     print("-"*10)
 except:
     print("Что-то пошло не так :-(")
