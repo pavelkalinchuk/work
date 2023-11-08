@@ -1,3 +1,4 @@
+import sys
 from os import path
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
@@ -26,5 +27,7 @@ try:
     print("\n")
     print(s)
     print("\n")
+except:
+    sys.exit(1)
 finally:
     wd.quit()
