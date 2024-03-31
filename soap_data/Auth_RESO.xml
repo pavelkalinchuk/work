@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-16"?>
+<data>
+  <request>
+    <RequestIp>10.205.255.48</RequestIp>
+    <AppId>956371</AppId>
+    <RequestToken>AF1A4DED4196E2708856AC029F3B919C133202EFED5249495387D6EE568EE5015EC573F805DC39CBBD05BD5FB78431132C0567B0AA8DE5A5717AC644CCEE1AC2</RequestToken>
+    <reqName>GETATTACHMENTDATA</reqName>
+    <params>
+      <ISN>784151247</ISN>
+      <REFISN>656422127</REFISN>
+      <PICTTYPE>D</PICTTYPE>
+      <Sid>1057e267-d726-4a45-a554-d09713ba010c</Sid>
+    </params>
+  </request>
+</data>

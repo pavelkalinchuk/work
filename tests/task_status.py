@@ -10,15 +10,18 @@ import getpass
 # import json
 
 driver_path = r'C:\Users\p.kalinchuk\python\work\drivers\geckodriver.exe'
+data_path = r'C:\Users\p.kalinchuk\python\work\data\tasks.txt'
+result_path = r'C:\Users\p.kalinchuk\python\work\results\tasks_results.txt'
 
 options = Options()
+# Для отображения браузера указать False
 options.headless = True
 path = Service(driver_path)
 wd = webdriver.Firefox(service=path, options=options)
 wd.implicitly_wait(30)
 
 # Читаем файл со списком номеров задач
-with open('tasks.txt', 'r') as f:
+with open(data_path, 'r') as f:
     tasks = f.read()
 
 tasks_list = tasks.split()
@@ -41,7 +44,7 @@ try:
     wd.find_element(
         By.XPATH, "//input[@id='login-form-password']").send_keys(pass_key)
     wd.find_element(
-        By.XPATH, "//input[@id='login-form-submit']").click()
+        By.XPATH, "//*[@id='login-form-submit']").click()
     print("-"*10 + "\n")
     for i in tasks_list:
         link = ("https://jira.absolutins.ru/browse/"+str(i))
@@ -96,23 +99,31 @@ try:
         try:
             time_task = "   Предварительная оценка: " + \
                 wd.find_element(
-                    By.XPATH, "//dd[@id='tt_single_values_orig']").text
+                    By.XPATH, "//dd[@id='tt_single_values_orig']").get_attribute("innerText")
         except NoSuchElementException as e:
             s = str(e)
             if "tt_single_values_orig" in s:
                 title_task = '    Предварительная оценка: -----'
         try:
+            time_task_fact = "   Затраченное время: " + \
+                wd.find_element(
+                    By.XPATH, "//dd[@id='tt_single_values_spent']").get_attribute("innerText")
+        except NoSuchElementException as e:
+            s = str(e)
+            if "tt_single_values_orig" in s:
+                title_task = '    Затраченное время: -----'
+        try:
             sprint_task = "   В спринте: " + \
                 wd.find_element(
-                    By.XPATH, "//dd/a[@class='issueaction-greenhopper-rapidboard-operation js-find-on-board-sprint']").text
+                    By.XPATH, "//dd/a[@class='issueaction-greenhopper-rapidboard-operation js-find-on-board-sprint']").get_attribute("innerText")
         except NoSuchElementException as e:
             s = str(e)
             if "issueaction-greenhopper-rapidboard-operation js-find-on-board-sprint" in s:
                 sprint_task = '    В спринте: -----'
 #      Разблокировать, если надо записывать в файл
-        with open('result.txt', 'a', encoding="utf-8") as f:
+        with open(result_path, 'a', encoding="utf-8") as f:
             f.write("\n" + str(i) + "\n" + type_task + "\n" + status_task + "\n" + executor_task + "\n" + author_task +
-                    "\n" + tester_task + "\n" + title_task + "\n" + time_task + "\n" + sprint_task + "\n" + link + "\n")
+                    "\n" + tester_task + "\n" + title_task + "\n" + time_task + "\n" + time_task_fact + "\n" + sprint_task + "\n" + link + "\n")
 #            print(str(i) + ':    Тестировщик проставлен')
         # Вывод результата в терминал
         # print(str(i) + "\n" + type_task + "\n" + status_task + "\n" + executor_task + "\n" +

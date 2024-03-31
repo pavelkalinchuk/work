@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-16"?>
+<data>
+  <request>
+    <RequestIp>10.205.255.48</RequestIp>
+    <AppId>956371</AppId>
+    <reqName>CHECKSESSION</reqName>
+    <RequestToken>390A624E0C37AD99E6F54D96FDC11EBC948F140919B5107E4F409776B0AEF412896E1A790D67B781A148A6E1D6AE824269637C40BB3A17EC8713D882CC0DFE11</RequestToken>
+    <params>
+      <Sid>1057e267-d726-4a45-a554-d09713ba010c</Sid>
+    </params>
+  </request>
+</data>
