@@ -9,7 +9,7 @@ from selenium.common.exceptions import NoSuchElementException
 driver_path = r'C:\Users\p.kalinchuk\python\work\drivers\geckodriver.exe'
 
 options = Options()
-options.headless = True
+options.add_argument("-headless")
 path = Service(driver_path)
 wd = webdriver.Firefox(service=path, options=options)
 wd.implicitly_wait(30)

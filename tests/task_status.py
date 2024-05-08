@@ -14,8 +14,8 @@ data_path = r'C:\Users\p.kalinchuk\python\work\data\tasks.txt'
 result_path = r'C:\Users\p.kalinchuk\python\work\results\tasks_results.txt'
 
 options = Options()
-# Для отображения браузера указать False
-options.headless = True
+# Для  скрытия браузера передаём параметр "-headless"
+options.add_argument("-headless")
 path = Service(driver_path)
 wd = webdriver.Firefox(service=path, options=options)
 wd.implicitly_wait(30)

@@ -4,3 +4,6 @@
 /allure-results/
 /venv/
 .vscode
+/results
+/data
+.gitignore
